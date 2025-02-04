@@ -1,0 +1,11 @@
+NOM               | LARGEUR | HAUTEUR | SEGMENTS
+-------------------------------------------------
+chat.pbm          | 250     | 140     | 880
+gymnaste.pbm      | 1056    | 1647    | 8784
+lettreZ.pbm       | 600     | 1029    | 9396
+coq.pbm           | 700     | 720     | 5386
+image_ex_poly.pbm | 4       | 4       | 18
+map401.pbm        | 830     | 300     | 8072
+elephant.pbm      | 800     | 700     | 5344
+labyrinthe.pbm    | 221     | 201     | 44000
+tete.pbm          | 1252    | 1252    | 8136
