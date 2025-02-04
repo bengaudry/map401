@@ -5,6 +5,9 @@
 #include<stdlib.h> /* utilisation des fonctions malloc et free */
 #include "geometrie.h"
 
+
+////// LISTES DE POINTS ET CONTOURS //////
+
 /*---- le type cellule de liste de point ----*/
 typedef struct Cellule_Liste_Point_
 {
@@ -65,5 +68,25 @@ unsigned int taille_liste_points(Liste_Point L);
    tableau de points afin de pouvoir par la suite acceder aux elements d'une
    sequence de points par indice */
 void ecrire_contour(Liste_Point L);
+
+
+
+
+
+////// SEQUENCES DE CONTOURS ///////
+typedef struct cellule_seq_contours_ {
+   Contour value;
+   struct cellule_seq_contours_* suiv;
+} CelluleSeqContours;
+
+typedef struct {
+   int taille;
+   CelluleSeqContours* first;
+   CelluleSeqContours* last;
+} SequenceContours;
+
+SequenceContours* initialiser_sequence_contours();
+/* Ajoute une cellule à la fin d'une séquence de contours */
+void ajouter_cellule_seq_contours(SequenceContours* seq, Contour value);
 
 #endif

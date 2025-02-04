@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "sequence_point.h"
 #include "geometrie.h"
 #include "image.h"
@@ -27,6 +28,27 @@ Point trouver_premier_point(Image I) {
     }
 
     return set_point(-1, -1); // Ne devrait pas arriver
+}
+
+/* Renvoie un tableau de dimensions egales à celles de l'image,
+ * qui contient vrai si le pixel est candidat, faux sinon
+*/
+void pixels_candidats(Image I, bool tab_pixels_candidats[][1000]) {
+    int x, y;
+    int H, L;
+    Pixel pixel_courant, pixel_nord;
+
+    H = hauteur_image(I);
+    L = largeur_image(I);
+
+    for (y = 1; y <= H; y++) {
+        for (x = 1; x <= L; x++) {
+            pixel_courant = get_pixel_image(I, x, y);
+            pixel_nord = get_pixel_image(I, x, y-1);
+
+            tab_pixels_candidats[x-1][y-1] = (pixel_courant == NOIR && pixel_nord == BLANC);
+        }
+    }
 }
 
 Orientation tourner_a_gauche(Orientation O) {
@@ -74,15 +96,50 @@ Pixel pixel_droit(Image I, Point P, Orientation O) {
     }
 }
 
-Contour parcourir_contour(Image I) {
+void parcourir_contours(Image I, SequenceContours *seq_contours) {
+    bool pixels_candidats_tab[1000][1000];
     Orientation or_robot;
     Point pos_robot, pos_initial_robot;
+    Contour contour;
+
+    pixels_candidats(I, pixels_candidats_tab);
+
+    for (int y = 0; y < hauteur_image(I); y++) {
+        for (int x = 0; x < largeur_image(I); x++) {
+            if (pixels_candidats_tab[x][y]) {
+                contour = creer_liste_Point_vide();
+                or_robot = Est;
+                pos_initial_robot = set_point(x, y);
+                pos_robot = pos_initial_robot;
+
+                do {
+                    contour = ajouter_element_liste_Point(contour, pos_robot);
+                    pos_robot = calculer_nouvelle_position_robot(pos_robot, or_robot); // On avance le robot de 1
+                
+                    if (pixel_gauche(I, pos_robot, or_robot) == NOIR) or_robot = tourner_a_gauche(or_robot);
+                    else if (pixel_droit(I, pos_robot, or_robot) == BLANC) or_robot = tourner_a_droite(or_robot);
+
+                    if (pixels_candidats_tab[(int)pos_robot.x][(int)pos_robot.y]) {
+                        pixels_candidats_tab[(int)pos_robot.x][(int)pos_robot.y] = false;
+                    }
+                } while (!points_egaux(pos_robot, pos_initial_robot) || or_robot != Est);
+                
+                contour = ajouter_element_liste_Point(contour, pos_robot);
+
+                ajouter_cellule_seq_contours(seq_contours, contour);
+            }
+        }
+    }
+}
+
+Contour parcourir_contour(Image I, Point pos_initial_robot) {
+    Orientation or_robot;
+    Point pos_robot;
     Contour contour;
 
     contour = creer_liste_Point_vide();
 
     or_robot = Est;
-    pos_initial_robot = trouver_premier_point(I);
 
     if (pos_initial_robot.x == -1 && pos_initial_robot.y == -1) {
         fprintf(stderr, "Pas de contour a détecter\n");

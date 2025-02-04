@@ -19,6 +19,8 @@ char* extraire_nom_fichier(char* chemin_fichier) {
 
 int main (int argc, char **argv) {
     Image I;
+    SequenceContours *seq_contours;
+    CelluleSeqContours *cel_seq_contours;
 
     if (argc != 2 && argc != 3) {
         fprintf(stderr, "Utilisation: %s <chemin_fichier_pbm> <mode: 'fill' | 'stroke' | null>\n", argv[0]);
@@ -29,13 +31,18 @@ int main (int argc, char **argv) {
 
     printf("Largeur : %d\n", largeur_image(I));
     printf("Hauteur : %d\n", hauteur_image(I));
-    
-    Contour c = parcourir_contour(I);
-    ecrire_contour(c);
 
-    exporter_image_eps(I, c, extraire_nom_fichier(argv[1]), argv[2] == NULL ? "fill" : argv[2]);
+    seq_contours = initialiser_sequence_contours();
+    parcourir_contours(I, seq_contours);
+    printf("%d contours detectés\n", seq_contours->taille);
 
-    printf("Nombre de segments : %d\n", taille_liste_points(c)-1);
+    cel_seq_contours = seq_contours->first;
+    // while (cel_seq_contours != NULL) {
+    //     ecrire_contour(cel_seq_contours->value);
+    //     cel_seq_contours = cel_seq_contours->suiv;
+
+    // }
+    exporter_image_eps(I, seq_contours, extraire_nom_fichier(argv[1]), argv[2] == NULL ? "fill" : argv[2]);
 
     return 0;
 }

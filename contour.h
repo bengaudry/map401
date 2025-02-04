@@ -9,6 +9,8 @@ typedef enum { Nord, Sud, Est, Ouest } Orientation;
 /* Renvoie les coordonnées du premier pixel noir de l'image */
 Point trouver_premier_point(Image img);
 
-Contour parcourir_contour(Image I);
+void parcourir_contours(Image I, SequenceContours *seq_contours);
+
+Contour parcourir_contour(Image I, Point pos_initial_robot);
 
 #endif

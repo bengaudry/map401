@@ -154,3 +154,40 @@ void ecrire_contour(Liste_Point L)
 	
 	free(TP.tab); /* supprimer le tableau de point TP */
 }
+
+
+
+SequenceContours* initialiser_sequence_contours() {
+	SequenceContours* seq;
+	seq = malloc(sizeof(SequenceContours));
+	seq->taille = 0;
+	seq->first = NULL;
+	seq->last = NULL;
+	return seq;
+}
+
+/* Ajoute une cellule à la fin d'une séquence de contours */
+void ajouter_cellule_seq_contours(SequenceContours* seq, Contour value) {
+	CelluleSeqContours* cel_seq;
+
+	if (seq == NULL) {
+		fprintf(stderr, "Sequence non initialisée, arret.\n");
+		exit(1);
+	}
+
+	cel_seq = malloc(sizeof(CelluleSeqContours));
+	cel_seq->value = value;
+	cel_seq->suiv = NULL;
+
+	if (seq->first == NULL) {
+		seq->first = cel_seq;
+		seq->last = cel_seq;
+		seq->taille = 1;
+		return;
+	}
+
+	seq->last->suiv = cel_seq;
+	seq->taille = seq->taille + 1;
+	seq->last = cel_seq;
+}
+

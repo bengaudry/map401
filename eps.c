@@ -3,9 +3,11 @@
 #include "image.h"
 #include "sequence_point.h"
 
-void exporter_image_eps(Image I, Contour C, char* nom, char* mode) {
+void exporter_image_eps(Image I, SequenceContours *seq_contours, char* nom, char* mode) {
     FILE *dest;
     Cellule_Liste_Point *cel;
+    CelluleSeqContours *cel_seq_contours;
+    Contour C;
     int L, H;
 
     dest = fopen(strcat(nom, ".eps"), "w");
@@ -21,17 +23,22 @@ void exporter_image_eps(Image I, Contour C, char* nom, char* mode) {
     fprintf(dest, "%%!PS-Adobe-3.0 EPSF-3.0\n");
     fprintf(dest, "%%%%BoundingBox: %d %d %d %d\n\n", -1, 0, L, H+1);
 
-    /* On se place sur le point à l'origine */
-    if (C.first != NULL) fprintf(dest, "%f %f moveto\n", C.first->data.x, H-C.first->data.y);
-    cel = C.first;
+    cel_seq_contours = seq_contours->first;
+    while (cel_seq_contours != NULL) {
+        C = cel_seq_contours->value;
+        /* On se place sur le point à l'origine */
+        if (C.first != NULL) fprintf(dest, "%f %f moveto\n", C.first->data.x, H-C.first->data.y);
+        cel = C.first;
 
-    /* On trace une ligne pour chaque point du contour */
-    while (cel != NULL) {
-        if (cel->suiv != NULL) {
-            fprintf(dest, "%f %f lineto", cel->suiv->data.x, H-cel->suiv->data.y);
+        /* On trace une ligne pour chaque point du contour */
+        while (cel != NULL) {
+            if (cel->suiv != NULL) {
+                fprintf(dest, "%f %f lineto", cel->suiv->data.x, H-cel->suiv->data.y);
+            }
+            fprintf(dest, "\n");
+            cel = cel->suiv;
         }
-        fprintf(dest, "\n");
-        cel = cel->suiv;
+        cel_seq_contours = cel_seq_contours->suiv;
     }
 
     fprintf(dest, "\n0 0 0 setrgbcolor 0 setlinewidth\n");

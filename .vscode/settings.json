@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "sequence_point.h": "c",
+        "string.h": "c"
+    }
+}
