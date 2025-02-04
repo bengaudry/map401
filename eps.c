@@ -3,6 +3,7 @@
 #include "image.h"
 #include "sequence_point.h"
 
+/* Exporte une sequence de contours au format eps */
 void exporter_image_eps(Image I, SequenceContours *seq_contours, char* nom, char* mode) {
     FILE *dest;
     Cellule_Liste_Point *cel;
@@ -23,6 +24,7 @@ void exporter_image_eps(Image I, SequenceContours *seq_contours, char* nom, char
     fprintf(dest, "%%!PS-Adobe-3.0 EPSF-3.0\n");
     fprintf(dest, "%%%%BoundingBox: %d %d %d %d\n\n", -1, 0, L, H+1);
 
+    /* On parcourt chaque contour de la séquence */
     cel_seq_contours = seq_contours->first;
     while (cel_seq_contours != NULL) {
         C = cel_seq_contours->value;

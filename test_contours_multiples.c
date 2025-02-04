@@ -37,11 +37,10 @@ int main (int argc, char **argv) {
     printf("%d contours detectés\n", seq_contours->taille);
 
     cel_seq_contours = seq_contours->first;
-    // while (cel_seq_contours != NULL) {
-    //     ecrire_contour(cel_seq_contours->value);
-    //     cel_seq_contours = cel_seq_contours->suiv;
-
-    // }
+    while (cel_seq_contours != NULL) {
+        ecrire_contour(cel_seq_contours->value);
+        cel_seq_contours = cel_seq_contours->suiv;
+    }
     exporter_image_eps(I, seq_contours, extraire_nom_fichier(argv[1]), argv[2] == NULL ? "fill" : argv[2]);
 
     return 0;
