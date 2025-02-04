@@ -33,7 +33,7 @@ Point trouver_premier_point(Image I) {
 /* Renvoie un tableau de dimensions egales à celles de l'image,
  * qui contient vrai si le pixel est candidat, faux sinon
 */
-void pixels_candidats(Image I, bool tab_pixels_candidats[][1000]) {
+void pixels_candidats(Image I, bool tab_pixels_candidats[][2000]) {
     int x, y;
     int H, L;
     Pixel pixel_courant, pixel_nord;
@@ -97,7 +97,7 @@ Pixel pixel_droit(Image I, Point P, Orientation O) {
 }
 
 void parcourir_contours(Image I, SequenceContours *seq_contours) {
-    bool pixels_candidats_tab[1000][1000];
+    bool pixels_candidats_tab[2000][2000];
     Orientation or_robot;
     Point pos_robot, pos_initial_robot;
     Contour contour;
