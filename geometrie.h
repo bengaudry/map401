@@ -52,5 +52,8 @@ double norme_vect(Vecteur V);
 
 void affiche_vect(char *nom, Vecteur V);
 
+/* Retourne la distance entre le point P et le segment formé par les points A et B */
+double distance_point_segment(Point P, Point A, Point B);
+
 
 #endif

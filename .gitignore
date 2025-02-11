@@ -1,5 +1,9 @@
 rendu_tache*/
 *.o
 test_contours_multiples
+test_contour_simple
 test_geometrie
 test_image
+test_distance_point_seg
+test_simplification
+.nfs*

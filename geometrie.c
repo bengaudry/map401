@@ -84,6 +84,28 @@ double norme_vect(Vecteur V) {
     return sqrt(V.x*V.x + V.y*V.y);
 }
 
+/* Retourne la distance entre le point P et le segment formé par les points A et B */
+double distance_point_segment(Point P, Point A, Point B) {
+    // A est confondu avec B
+    if (points_egaux(A, B)) return distance_points(A, P);
+
+    Point Q; // projection orthogonale de P sur Delta
+    double lambda;
+    Vecteur AP, AB;
+
+    AP = vect_bipoint(A, P);
+    AB = vect_bipoint(A, B);
+
+    lambda = produit_scalaire(AP, AB) / produit_scalaire(AB, AB);
+
+    // Q = A + lambda(B - A)
+    Q = somme_points(A, mult_point_scalaire(somme_points(B, mult_point_scalaire(A, -1)), lambda));
+
+    if (lambda < 0) return distance_points(A, P);
+    if (lambda > 1 ) return distance_points(B, P); 
+    return distance_points(Q, P);
+}
+
 void affiche_vect(char *nom, Vecteur V) {
     printf("%s-> = (%f, %f)\n", nom, V.x, V.y);
 }

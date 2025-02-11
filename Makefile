@@ -37,7 +37,7 @@ INCLUDEOPTS = -I$(INCDIR)
 COMPILOPTS = -g -Wall $(INCLUDEOPTS)
 
 # liste des executables
-EXECUTABLES = test_image test_geometrie test_contour_simple test_contours_multiples
+EXECUTABLES = test_image test_geometrie test_contour_simple test_contours_multiples test_distance_point_seg test_simplification
 
 
 #############################################################################
@@ -108,6 +108,22 @@ test_contours_multiples : test_contours_multiples.c sequence_point.o contour.o i
 	@echo "Creation de l'executable "$@
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
+
+test_distance_point_seg: test_distance_point_seg.c geometrie.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
+
+test_simplification: test_simplification.c simplification_contours.o sequence_point.o geometrie.o image.o contour.o eps.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
+
+
 
 
 # regle pour "nettoyer" le r�pertoire

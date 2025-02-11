@@ -119,7 +119,7 @@ void parcourir_contours(Image I, SequenceContours *seq_contours) {
                     if (pixel_gauche(I, pos_robot, or_robot) == NOIR) or_robot = tourner_a_gauche(or_robot);
                     else if (pixel_droit(I, pos_robot, or_robot) == BLANC) or_robot = tourner_a_droite(or_robot);
 
-                    if (pixels_candidats_tab[(int)pos_robot.x][(int)pos_robot.y]) {
+                    if (or_robot == Est && pixels_candidats_tab[(int)pos_robot.x][(int)pos_robot.y]) {
                         pixels_candidats_tab[(int)pos_robot.x][(int)pos_robot.y] = false;
                     }
                 } while (!points_egaux(pos_robot, pos_initial_robot) || or_robot != Est);

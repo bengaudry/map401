@@ -10,8 +10,10 @@ void exporter_image_eps(Image I, SequenceContours *seq_contours, char* nom, char
     CelluleSeqContours *cel_seq_contours;
     Contour C;
     int L, H;
+    char *dest_name = nom;
 
-    dest = fopen(strcat(nom, ".eps"), "w");
+    strcat(dest_name, ".eps");
+    dest = fopen(dest_name, "w");
     if (dest == NULL) {
         fprintf(stderr, "Impossible de créer le fichier %s\n", nom);
         return;
