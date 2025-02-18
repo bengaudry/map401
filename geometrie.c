@@ -98,11 +98,11 @@ double distance_point_segment(Point P, Point A, Point B) {
 
     lambda = produit_scalaire(AP, AB) / produit_scalaire(AB, AB);
 
-    // Q = A + lambda(B - A)
-    Q = somme_points(A, mult_point_scalaire(somme_points(B, mult_point_scalaire(A, -1)), lambda));
-
     if (lambda < 0) return distance_points(A, P);
     if (lambda > 1 ) return distance_points(B, P); 
+
+    // Q = A + lambda(B - A)
+    Q = somme_points(A, mult_point_scalaire(somme_points(B, mult_point_scalaire(A, -1)), lambda));
     return distance_points(Q, P);
 }
 
