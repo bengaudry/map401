@@ -3,6 +3,7 @@
 
 #include "geometrie.h"
 #include "sequence_point.h"
+#include "image.h"
 
 typedef enum { Nord, Sud, Est, Ouest } Orientation;
 

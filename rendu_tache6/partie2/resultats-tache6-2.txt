@@ -1,0 +1,41 @@
+- cheval.pbm 1 :
+59 contours detectés
+Total points: 32061
+Total segments: 32002
+Total points après simplification d=1: 2948
+Total points après simplification d=2: 2102
+
+- elephant-gotlib.pbm 1
+313 contours detectés
+Total points: 115877
+Total segments: 115564
+Total points après simplification d=1: 8946
+Total points après simplification d=2: 6428
+
+- goudyini-A.pbm 1
+258 contours detectés
+Total points: 73702
+Total segments: 73444
+Total points après simplification d=1: 5746
+Total points après simplification d=2: 4486
+
+- image_poly_tache6.pbm :
+3 contours detectés
+Total points: 491
+Total segments: 488
+Total points après simplification d=1: 86
+Total points après simplification d=2: 72
+
+- JoaquimHock-LesArbres.pbm 1
+543 contours detectés
+Total points: 231827
+Total segments: 231284
+Total points après simplification d=1: 27298
+Total points après simplification d=2: 19826
+
+- papillon2.pbm 1
+140 contours detectés
+Total points: 18352
+Total segments: 18212
+Total points après simplification d=1: 2194
+Total points après simplification d=2: 1674

@@ -3,6 +3,19 @@
 
 #include "sequence_point.h"
 
-Contour simplification_douglas_peucker(Tableau_Point ContourTab, int j1, int j2, double d);
+typedef struct {
+    Point C0;
+    Point C1;
+    Point C2;
+} Bezier2;
+
+typedef struct {
+    Point C0;
+    Point C1;
+    Point C2;
+    Point C4;
+} Bezier3;
+
+SequenceContours* simplifier_seq_contours_dp (SequenceContours *seq, double d);
 
 #endif

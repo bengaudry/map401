@@ -67,12 +67,19 @@ Liste_Point concatener_liste_Point(Liste_Point L1, Liste_Point L2)
 	/* cas o� l'une des deux listes est vide */
 	if (L1.taille == 0) return L2; 
 	if (L2.taille == 0) return L1;
-	
-	/* les deux listes sont non vides */
-	L1.last->suiv = L2.first; /* lien entre L1.last et L2.first */
-	L1.last = L2.last;        /* le dernier element de L1 est celui de L2 */
-	L1.taille += L2.taille;   /* nouvelle taille pour L1 */
-	return L1;
+
+	if (points_egaux(L1.last->data, L2.first->data)) {
+		L1.last->suiv = L2.first->suiv;
+		L1.last = L2.last;        /* le dernier element de L1 est celui de L2 */
+		L1.taille += L2.taille-1;
+		return L1;
+	} else {
+		/* les deux listes sont non vides */
+		L1.last->suiv = L2.first; /* lien entre L1.last et L2.first */
+		L1.last = L2.last;        /* le dernier element de L1 est celui de L2 */
+		L1.taille += L2.taille;   /* nouvelle taille pour L1 */
+		return L1;
+	}
 }
 
 /* si la liste est non vide, la fonction supprime le premier element de L 

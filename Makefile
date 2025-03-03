@@ -129,3 +129,6 @@ test_simplification: test_simplification.c simplification_contours.o sequence_po
 # regle pour "nettoyer" le r�pertoire
 clean:
 	rm -fR $(EXECUTABLES) *.o 
+
+clean_eps:
+	rm ./*.eps

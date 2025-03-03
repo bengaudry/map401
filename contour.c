@@ -110,8 +110,8 @@ void parcourir_contours(Image I, SequenceContours *seq_contours) {
 
     Masque = pixels_candidats(I);
 
-    for (int y = 0; y < hauteur_image(I); y++) {
-        for (int x = 0; x < largeur_image(I); x++) {
+    for (int y = 1; y <= hauteur_image(I); y++) {
+        for (int x = 1; x <= largeur_image(I); x++) {
             if (get_pixel_image(Masque, x, y) == NOIR) {
                 contour = creer_liste_Point_vide();
                 or_robot = Est;
@@ -119,19 +119,18 @@ void parcourir_contours(Image I, SequenceContours *seq_contours) {
                 pos_robot = pos_initial_robot;
 
                 do {
-                    contour = ajouter_element_liste_Point(contour, pos_robot);
+                    contour = ajouter_element_liste_Point(contour, set_point(pos_robot.x, pos_robot.y));
                     pos_robot = calculer_nouvelle_position_robot(pos_robot, or_robot); // On avance le robot de 1
                 
                     if (pixel_gauche(I, pos_robot, or_robot) == NOIR) or_robot = tourner_a_gauche(or_robot);
                     else if (pixel_droit(I, pos_robot, or_robot) == BLANC) or_robot = tourner_a_droite(or_robot);
 
-                    if (or_robot == Est && get_pixel_image(Masque, (int)pos_robot.x+1, (int)pos_robot.y+1) == NOIR) {
+                    if (or_robot == Est) {
                         set_pixel_image(Masque, (int)pos_robot.x+1, (int)pos_robot.y+1, BLANC);
                     }
                 } while (!points_egaux(pos_robot, pos_initial_robot) || or_robot != Est);
                 
                 contour = ajouter_element_liste_Point(contour, pos_robot);
-
                 ajouter_cellule_seq_contours(seq_contours, contour);
             }
         }
