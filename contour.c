@@ -102,6 +102,7 @@ Pixel pixel_droit(Image I, Point P, Orientation O) {
     }
 }
 
+/* Parcours de contours multiples */
 void parcourir_contours(Image I, SequenceContours *seq_contours) {
     Orientation or_robot;
     Point pos_robot, pos_initial_robot;
@@ -112,6 +113,7 @@ void parcourir_contours(Image I, SequenceContours *seq_contours) {
 
     for (int y = 1; y <= hauteur_image(I); y++) {
         for (int x = 1; x <= largeur_image(I); x++) {
+            // Si le pixel est candidat
             if (get_pixel_image(Masque, x, y) == NOIR) {
                 contour = creer_liste_Point_vide();
                 or_robot = Est;
@@ -125,6 +127,7 @@ void parcourir_contours(Image I, SequenceContours *seq_contours) {
                     if (pixel_gauche(I, pos_robot, or_robot) == NOIR) or_robot = tourner_a_gauche(or_robot);
                     else if (pixel_droit(I, pos_robot, or_robot) == BLANC) or_robot = tourner_a_droite(or_robot);
 
+                    // Supprimer le pixel candidat correspondant si le robot regarde vers l'Est
                     if (or_robot == Est) {
                         set_pixel_image(Masque, (int)pos_robot.x+1, (int)pos_robot.y+1, BLANC);
                     }

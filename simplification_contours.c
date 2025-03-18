@@ -28,6 +28,7 @@ Contour simplification_douglas_peucker(Tableau_Point tab_contour, int j1, int j2
 
     if (dmax <= d) {
         L = ajouter_element_liste_Point(L, Pj1);
+        //L = ajouter_element_liste_Point(L, Pj2);
     } else {
         L1 = creer_liste_Point_vide();
         L2 = creer_liste_Point_vide();
