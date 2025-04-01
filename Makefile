@@ -20,6 +20,8 @@
 
 # compilateur C
 CC = clang
+CFLAGS = -g -Wall -Wextra -O2 -I.
+LDFLAGS = -lm
 
 # chemin d'acces aux librairies (interfaces)
 INCDIR = .
@@ -37,7 +39,10 @@ INCLUDEOPTS = -I$(INCDIR)
 COMPILOPTS = -g -Wall $(INCLUDEOPTS)
 
 # liste des executables
-EXECUTABLES = test_image test_geometrie test_contour_simple test_contours_multiples test_distance_point_seg test_simplification test_simplification_bezier2 test_approx_bezier
+EXECUTABLES = test_image test_geometrie test_contour_simple test_contours_multiples\
+			 test_distance_point_seg test_simplification test_courbes_bezier \
+			 test_approx_bezier test_simplification_bezier2\
+			 test_simplification_bezier3
 
 
 #############################################################################
@@ -46,7 +51,7 @@ EXECUTABLES = test_image test_geometrie test_contour_simple test_contours_multip
 
 ########################################################
 # la r�gle par d�faut
-all : $(EXECUTABLES)
+all: $(EXECUTABLES)
 
 ########################################################
 # regle generique : 
@@ -63,20 +68,14 @@ all : $(EXECUTABLES)
 ########################################################
 # regles explicites de compilation separee de modules
 # n'ayant pas de fichier .h ET/OU dependant d'autres modules
-image.o : image.c image.h 
-	@echo ""
-	@echo "---------------------------------------------"
-	@echo "Compilation du module image"
-	@echo "---------------------------------------------"
+image.o : image.c image.h
 	$(CC) -c $(COMPILOPTS) $<
 
-test_image.o : test_image.c image.h 
-	@echo ""
-	@echo "---------------------------------------------"
-	@echo "Compilation du module test_image"
-	@echo "---------------------------------------------"
-	$(CC) -c $(COMPILOPTS) $<
 
+########################################################
+# Executable pour le rendu
+main: main.o bezier.o simplification_bezier.o sequence_point.o image.o eps.o contour.o geometrie.o
+	$(CC) -c $(LDOPTS) -o $@
 		
 ########################################################
 # regles explicites de creation des executables
@@ -138,6 +137,13 @@ test_approx_bezier: test_approx_bezier.c bezier.o simplification_bezier.o contou
 	$(CC) $^ $(LDOPTS) -o $@
 
 test_simplification_bezier2: test_simplification_bezier2.c bezier.o simplification_bezier.o sequence_point.o image.o eps.o contour.o geometrie.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
+
+test_simplification_bezier3: test_simplification_bezier3.c bezier.o simplification_bezier.o sequence_point.o image.o eps.o contour.o geometrie.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@

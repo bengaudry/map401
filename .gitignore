@@ -1,8 +1,13 @@
 *.o
-test_contours_multiples
+test_approx_bezier
 test_contour_simple
+test_contours_multiples
+test_courbes_bezier
+test_distance_point_seg
 test_geometrie
 test_image
-test_distance_point_seg
-test_simplification
+test_simplification_bezier2
+test_simplification_bezier3
+main
 .nfs*
+./*.eps
