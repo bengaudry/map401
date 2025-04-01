@@ -37,7 +37,7 @@ INCLUDEOPTS = -I$(INCDIR)
 COMPILOPTS = -g -Wall $(INCLUDEOPTS)
 
 # liste des executables
-EXECUTABLES = test_image test_geometrie test_contour_simple test_contours_multiples test_distance_point_seg test_simplification
+EXECUTABLES = test_image test_geometrie test_contour_simple test_contours_multiples test_distance_point_seg test_simplification test_simplification_bezier2 test_approx_bezier
 
 
 #############################################################################
@@ -123,8 +123,26 @@ test_simplification: test_simplification.c simplification_contours.o sequence_po
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
 
+test_courbes_bezier: test_courbes_bezier.c bezier.o simplification_bezier.o sequence_point.o geometrie.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
 
+test_approx_bezier: test_approx_bezier.c bezier.o simplification_bezier.o contour.o sequence_point.o image.o geometrie.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
 
+test_simplification_bezier2: test_simplification_bezier2.c bezier.o simplification_bezier.o sequence_point.o image.o eps.o contour.o geometrie.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
 
 # regle pour "nettoyer" le r�pertoire
 clean:

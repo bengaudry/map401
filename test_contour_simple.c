@@ -6,17 +6,6 @@
 #include "eps.h"
 #include "sequence_point.h"
 
-char* extraire_nom_fichier(char* chemin_fichier) {
-    char *filename = strrchr(chemin_fichier, '/');
-    if (filename) filename++;
-    else filename = chemin_fichier;
-
-    char *dot = strrchr(filename, '.');
-    if (dot) *dot = '\0';
-
-    return filename;
-}
-
 int main (int argc, char **argv) {
     Image I;
 

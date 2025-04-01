@@ -2,7 +2,6 @@
 #include<stdlib.h> /* utilisation des fonctions malloc et free */
 #include "sequence_point.h"
 
-
 /* creer une cellule de liste avec l'element v 
    renvoie le pointeur sur la cellule de liste creee
    la fonction s'arrete si la creation n'a pas pu se faire */
@@ -64,7 +63,7 @@ Liste_Point supprimer_liste_Point(Liste_Point L)
 /* concatener L2 a la suite de L1, renvoie la liste L1 modifiee */
 Liste_Point concatener_liste_Point(Liste_Point L1, Liste_Point L2)
 {
-	/* cas o� l'une des deux listes est vide */
+	/* cas où l'une des deux listes est vide */
 	if (L1.taille == 0) return L2; 
 	if (L2.taille == 0) return L1;
 
@@ -164,6 +163,8 @@ void ecrire_contour(Liste_Point L)
 
 
 
+////// SEQUENCES DE CONTOURS ///////
+
 SequenceContours* initialiser_sequence_contours() {
 	SequenceContours* seq;
 	seq = malloc(sizeof(SequenceContours));
@@ -197,4 +198,3 @@ void ajouter_cellule_seq_contours(SequenceContours* seq, Contour value) {
 	seq->taille = seq->taille + 1;
 	seq->last = cel_seq;
 }
-

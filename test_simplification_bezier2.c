@@ -6,12 +6,12 @@
 #include "contour.h"
 #include "eps.h"
 #include "sequence_point.h"
-#include "simplification_contours.h"
+#include "simplification_bezier.h"
 
 int main (int argc, char **argv) {
     Image I;
-    SequenceContours *seq_contours, *seq_contours_simple;
-    CelluleSeqContours *cel_seq_contours, *cel_seq_contours_simple;
+    SequenceContours *seq_contours, *seq_contours_simplifies;
+    CelluleSeqContours *cel_seq_contours, *cel_seq_contours_simplifies;
     Tableau_Point ContourTab;
     double d;
 
@@ -24,7 +24,6 @@ int main (int argc, char **argv) {
 
     // Création d'une séquence de contours
     seq_contours = initialiser_sequence_contours();
-    seq_contours_simple = initialiser_sequence_contours();
     
     parcourir_contours(I, seq_contours);
     printf("%d contours detectés\n", seq_contours->taille);
@@ -34,14 +33,15 @@ int main (int argc, char **argv) {
     d = strtod(argv[2], endptr);
     printf("d=%f\n", d);
 
-    seq_contours_simple = simplifier_seq_contours_dp(seq_contours, d);
+    // Simplification : 
+    seq_contours_simplifies = simplification_contours_bezier2(seq_contours, d);
 
     // Export au format eps
     char *nom_sortie = extraire_nom_fichier(argv[1]);
     exporter_image_eps(I, seq_contours, nom_sortie, "fill");        // export de l'image de base
 
     strcat(nom_sortie, "_simple");
-    exporter_image_eps(I, seq_contours_simple, nom_sortie, "fill"); // export de l'image simplifiée
+    exporter_bezier_eps(I, seq_contours_simplifies, nom_sortie, "fill"); // export de l'image simplifiée
 
     return 0;
 }

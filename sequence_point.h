@@ -71,8 +71,6 @@ void ecrire_contour(Liste_Point L);
 
 
 
-
-
 ////// SEQUENCES DE CONTOURS ///////
 typedef struct cellule_seq_contours_ {
    Contour value;
@@ -88,5 +86,6 @@ typedef struct {
 SequenceContours* initialiser_sequence_contours();
 /* Ajoute une cellule à la fin d'une séquence de contours */
 void ajouter_cellule_seq_contours(SequenceContours* seq, Contour value);
+
 
 #endif
