@@ -20,8 +20,22 @@
 
 # compilateur C
 CC = clang
-CFLAGS = -g -Wall -Wextra -O2 -I.
-LDFLAGS = -lm
+
+# chemin d'acces aux librairies (interfaces)
+INCDIR = .
+
+# chemin d'acces aux librairies (binaires)
+LIBDIR = .
+
+# options pour l'�dition des liens
+LDOPTS = -L$(LIBDIR) -lm
+
+# options pour la recherche des fichiers .o et .h
+INCLUDEOPTS = -I$(INCDIR)
+
+# options de compilation
+COMPILOPTS = -g -Wall $(INCLUDEOPTS)# compilateur C
+CC = clang
 
 # chemin d'acces aux librairies (interfaces)
 INCDIR = .
@@ -74,8 +88,8 @@ image.o : image.c image.h
 
 ########################################################
 # Executable pour le rendu
-main: main.o bezier.o simplification_bezier.o sequence_point.o image.o eps.o contour.o geometrie.o
-	$(CC) -c $(LDOPTS) -o $@
+main: main.o bezier.o simplification_bezier.o simplification_contours.o sequence_point.o image.o eps.o contour.o geometrie.o
+	$(CC) $^ $(LDOPTS) -o $@
 		
 ########################################################
 # regles explicites de creation des executables

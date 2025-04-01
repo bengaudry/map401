@@ -6,6 +6,7 @@ test_courbes_bezier
 test_distance_point_seg
 test_geometrie
 test_image
+test_simplification
 test_simplification_bezier2
 test_simplification_bezier3
 main
